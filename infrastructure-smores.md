@@ -35,7 +35,7 @@ for all common automation tasks
 
 ---
 
-![](images/newhotness.gif)
+![right](images/newhotness.gif)
 # New Way
 ## Communicate via code
 
@@ -79,3 +79,19 @@ for all common automation tasks
 
 > Enable the reconstruction of the business from nothing but a source code repository, an application data backup, and bare metal resources
 -- Jesse Robins
+
+---
+## Versioned
+
+## Modularized
+
+## Tested
+
+---
+
+# Executable Documentation
+
+---
+![left](images/hugemistake.png)
+
+## How do I make sure nobody messes stuff up?
