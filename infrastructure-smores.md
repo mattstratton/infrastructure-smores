@@ -1,20 +1,19 @@
-# Did you know?
+## Making Infrastructure S'mores With Chef
 
 ---
 
-## Display formulas
+# whoami
 
-Easily include mathematical notation written in LaTeX markup. Formula support is available as in-app purchase.
-
-See the next slide for an example.
-
+![inline 65%](images/chef.png)![200%](images/ado.png)
+![60%](images/dodchi.png)![50%](images/licenseplate.jpg)
 
 ---
 
-## Schrödinger’s equation
+![right](images/chef-code.png)
+# What is Chef?
 
-The simplest way to write the time-independent Schrödinger equation is $$H\psi = E\psi$$, however, with the Hamiltonian operator expanded it becomes:
-
-$$
--\frac{\hbar^2}{2m} \frac{d^2 \psi}{dx^2} + V\psi = E\psi
-$$
+- Define reusable resources and infrastructure state as code
+- Manages deployment and
+on-going automation
+- Community content available
+for all common automation tasks
