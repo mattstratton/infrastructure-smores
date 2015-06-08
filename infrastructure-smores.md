@@ -77,7 +77,7 @@ for all common automation tasks
 ---
 # Infrastructure as code
 
-> Enable the reconstruction of the business from nothing but a source code repository, an application data backup, and bare metal resources
+> Enable the reconstruction of the business from nothing but a source code repository, an application data backup, and [compute] resources
 -- Jesse Robins
 
 ---
