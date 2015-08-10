@@ -191,6 +191,19 @@ COMP001: Do not allow recipes to mount disk volumes: ./recipes/default.rb:20
 COMP001: Do not allow recipes to mount disk volumes: ./recipes/default.rb:26
 ```
 ---
+![](images/bill_ted1.jpg)
+
+## Demo time
+
+---
+## To Review
+- Trust (but verify) your domain experts
+- Share the cooking
+- Foodcritic is your friend
+- Use your production audit cookbooks in your pipeline
+- Did I mention test?
+
+---
 ![right](images/micdrop.gif)
 # Questions?
 ---
