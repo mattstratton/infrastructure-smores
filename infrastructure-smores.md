@@ -137,7 +137,7 @@ for all common automation tasks
 
 ---
 
-## Separation of concerns is a things
+## Separation of concerns is a thing
 
 ---
 
@@ -155,7 +155,6 @@ ___
 ## To Review
 - Trust (but verify) your domain experts
 - Share the cooking
-- Foodcritic is your friend
 - Use your production audit cookbooks in your pipeline
 - Did I mention test?
 
