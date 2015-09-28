@@ -18,10 +18,30 @@ on-going automation
 - Community content available
 for all common automation tasks
 
+^ Basically, with Chef you talk about WHAT you want and not HOW to do it. Full feature parity with Windows and Linux. With Chef we focus on the outcomes, not how the sausage gets made.
+
+---
+
+![fit](images/infracode.png)
+
+^
+
+---
+
+# Domain experts
+
+- Systems are complicated today
+- Nobody can know everything about the stack
+- Let your domain experts contribute their portion directly
+
+^ If you have a group that just writes the configuration code as requested by someone else, all you've done is move silos around.
+
 ---
 
 ![](images/panic.jpg)
 ## Anyone can do anything?
+
+^ Don't worry. It's going to be okay. We've got the magic DevOps pixie dust.
 
 ---
 
@@ -42,32 +62,6 @@ for all common automation tasks
 ^ What is a version control system but basically a communication tool?
 
 ---
-
-# Domain experts
-
-- Systems are complicated today
-- Nobody can know everything about the stack
-- Let your domain experts contribute their portion directly
-
-^ If you have a group that just writes the configuration code as requested by someone else, all you've done is move silos around.
-
----
-
-# Configuration Drift
-
-^ Configuration drift occurs when the desired state of the system no longer matches the current state of the system.
-
-^ This can happen because you change the desired state (we want SSH listening on another port) or something happens on the box (someone logs onto it interactively and makes a change)
-
----
-![left filtered](images/burgess.jpg)
-
-
-# Don't do things by hand
-> Every time someone logs onto a system by hand, they jeopardize everyone's understanding of the system
--- Mark Burgess
-
----
 # People make mistakes
 
 ## This doesn't scale
@@ -75,28 +69,11 @@ for all common automation tasks
 ^ You aren't going to fix the humans, so fix the system
 
 ---
-# Infrastructure as code
-
-> Enable the reconstruction of the business from nothing but a source code repository, an application data backup, and [compute] resources
--- Jesse Robins
-
----
-## Versioned
-
-## Modularized
-
-## Tested
-
----
-
-# Executable Documentation
-
----
 ![left](images/hugemistake.png)
 
 ## How do I make sure nobody messes stuff up?
 
-^ I thought devops was about trust? Can't we just have people do whatever they want?
+^ I thought DevOps was about trust? Can't we just have people do whatever they want?
 
 ---
 
@@ -141,65 +118,43 @@ for all common automation tasks
 
 #[fit]Chef audit mode as the final test
 
----
+^ Audit mode is something we likely will be running on our production machines anyway. In a way, audit mode is considered "acceptance testing" for the machine as a whole...so why not use that in our test pipeline?
 
-### Example of an audit cookbook
-
-```ruby
-control '6.9 Ensure FTP Server is not enabled' do
-  it 'is not running the vsftpd service' do
-    expect(service('vsftpd')).to_not be_running
-    expect(service('vsftpd')).to_not be_enabled
-  end
-
-  it 'is not listening on port 21' do
-    expect(port(21)).to_not be_listening
-  end
-end
-
-```
-^ This cookbook is executed after all recipes are applied in the pipeline
+^ We want to test our infracode against our standards BEFORE it is deployed...we don't want to find out about this 6 months later during a pen test.
 
 ---
-## Encourage local testing with Foodcritic
+![fit](images/georgesr.jpg)
+### Security and Compliance should be first-class citizens
 
-^ We want to test this stuff locally so people know if they do non-compliant chef code
+^ "Security and compliance are just another aspect of quality" - Julian Dunn
+
+^ We don't want to tack this on at the end - it should be part of our process throughout.
 
 ---
-# Example Foodcritic custom rule
-```ruby
+## Trust, But verify
 
-rule 'COMP001', 'Do not allow recipes to mount disk volumes' do
-  tags %w{recipe compliance}
-  recipe do |ast|
-    mountres = find_resources(ast, :type => 'mount').find_all do |cmd|
-      cmd
-    end
-    execres  = find_resources(ast, :type => 'execute').find_all do |cmd|
-      cmd_str = (resource_attribute(cmd, 'command') || resource_name(cmd)).to_s
-      cmd_str.include?('mount')
-    end
-    mountres.concat(execres).map{|cmd| match(cmd)}
-  end
-end
-```
+^ Take a page from the folks at Etsy. They have a high-trust culture, but that doesn't mean you don't test. I don't even trust myself to remember to test all the time.
+
 ---
-# Error output from foodcritic
-```bash
-$ foodcritic –I /afs/getchef.com/foodcritic-rules/rules.rb .
-COMP001: Do not allow recipes to mount disk volumes: ./recipes/default.rb:20
-COMP001: Do not allow recipes to mount disk volumes: ./recipes/default.rb:26
-```
+
+## Separation of concerns is a thing
+
 ---
+
+##aka
+###"my tests are failing, so I'll remove them"
+
+^ The person in charge of the compliance code should not be the same as the person writing the infracode. That's how development works, right?
+___
+
 ![](images/bill_ted1.jpg)
 
-## Demo time
+## Chef Delivery
 
 ---
 ## To Review
 - Trust (but verify) your domain experts
 - Share the cooking
-- Foodcritic is your friend
 - Use your production audit cookbooks in your pipeline
 - Did I mention test?
 
@@ -210,6 +165,13 @@ COMP001: Do not allow recipes to mount disk volumes: ./recipes/default.rb:26
 ##resources
 - Sidney Dekker - *Field Guide to Human Error*
 - foodcritic.io
-- https://github.com/chef-cookbooks/audit-cis
+- learn.chef.io
 - http://jtimberman.housepub.org/blog/2015/04/03/chef-audit-mode-introduction/
+
+---
+##moar resources
 - twitter.com/mattstratton
+- speakerdeck.com/mattstratton
+- github.com/mattstratton/infrastruture-smores
+- github.com/mattstratton/speaking
+- arresteddevops.com
