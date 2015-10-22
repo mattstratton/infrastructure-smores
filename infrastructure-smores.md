@@ -24,7 +24,22 @@ for all common automation tasks
 
 ![fit](images/infracode.png)
 
-^
+---
+# Infrastructure as code
+
+> Enable the reconstruction of the business from nothing but a source code repository, an application data backup, and [compute] resources
+-- Jesse Robins
+
+---
+## Versioned
+
+## Modularized
+
+## Tested
+
+---
+
+# Executable Documentation
 
 ---
 
@@ -110,6 +125,47 @@ for all common automation tasks
 #[fit]How do we solve this?
 
 ---
+![right](images/foodcritic.png)
+## Encourage local testing with Foodcritic
+
+^ Flag problems that might cause your Chef cookbooks to fail on converge
+
+^ For example, FC010: Invalid search syntax
+
+^ Identify style/convention that has been adopted by the Chef community
+
+^ For example, FC004: Use a service resource to start and stop services
+
+^ Run against static code, so tests are very fast (<5 seconds to run)
+
+---
+# Example Foodcritic custom rule
+```ruby
+
+rule 'COMP001', 'Do not allow recipes to mount disk volumes' do
+  tags %w{recipe compliance}
+  recipe do |ast|
+    mountres = find_resources(ast, :type => 'mount').find_all do |cmd|
+      cmd
+    end
+    execres  = find_resources(ast, :type => 'execute').find_all do |cmd|
+      cmd_str = (resource_attribute(cmd, 'command') || resource_name(cmd)).to_s
+      cmd_str.include?('mount')
+    end
+    mountres.concat(execres).map{|cmd| match(cmd)}
+  end
+end
+```
+
+---
+# Error output from foodcritic
+```bash
+$ foodcritic –I /afs/getchef.com/foodcritic-rules/rules.rb .
+COMP001: Do not allow recipes to mount disk volumes: ./recipes/default.rb:20
+COMP001: Do not allow recipes to mount disk volumes: ./recipes/default.rb:26
+```
+
+---
 #[fit]Use a pipeline
 
 ^ Infrastructure doesn't live in a vacuum. Things depend on each other.
@@ -130,6 +186,7 @@ for all common automation tasks
 
 ^ We don't want to tack this on at the end - it should be part of our process throughout.
 
+
 ---
 ## Trust, But verify
 
@@ -145,16 +202,12 @@ for all common automation tasks
 ###"my tests are failing, so I'll remove them"
 
 ^ The person in charge of the compliance code should not be the same as the person writing the infracode. That's how development works, right?
-___
-
-![](images/bill_ted1.jpg)
-
-## Chef Delivery
 
 ---
 ## To Review
 - Trust (but verify) your domain experts
 - Share the cooking
+- Leverage Foodcritic
 - Use your production audit cookbooks in your pipeline
 - Did I mention test?
 
