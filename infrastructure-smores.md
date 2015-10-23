@@ -53,6 +53,14 @@ for all common automation tasks
 
 ---
 
+![right](images/sysadmins.png)
+
+## Beware of Hubris
+
+^ Often times, we lock down systems to "protect" them. I will assure you that the very same sysadmins who insist that only they, by virtue of nothing more than job title, should be trusted to touch systems, will happily tell me "war stories" over a pint about times when the totally effed up everything.
+
+---
+
 ![](images/panic.jpg)
 ## Anyone can do anything?
 
@@ -202,6 +210,12 @@ COMP001: Do not allow recipes to mount disk volumes: ./recipes/default.rb:26
 ###"my tests are failing, so I'll remove them"
 
 ^ The person in charge of the compliance code should not be the same as the person writing the infracode. That's how development works, right?
+
+---
+
+![](images/bill_ted1.jpg)
+
+## Demo Time!
 
 ---
 ## To Review
